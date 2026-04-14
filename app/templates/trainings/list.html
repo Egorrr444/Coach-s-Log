@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Тренировки{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-4">Тренировки</h1>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        {% if trainings %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Группа</th>
+                        <th>Дата</th>
+                        <th>Время</th>
+                        <th>Тема</th>
+                        <th>Журнал</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t in trainings %}
+                    <tr>
+                        <td>{{ t.id }}</td>
+                        <td>{{ t.group_id }}</td>
+                        <td>{{ t.training_date }}</td>
+                        <td>{{ t.training_time }}</td>
+                        <td>{{ t.topic }}</td>
+                        <td>
+    <a href="/attendance-page/{{ t.id }}" class="btn btn-sm btn-primary">
+        Открыть
+    </a>
+</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>Нет тренировок</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

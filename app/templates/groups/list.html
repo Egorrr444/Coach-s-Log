@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Группы | Coach's Log{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-1">Группы</h1>
+        <p class="text-muted mb-0">Список тренировочных групп</p>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        {% if groups %}
+            <div class="table-responsive">
+                <table class="table table-striped align-middle">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Название</th>
+                            <th>Тренер ID</th>
+                            <th>Цена за тренировку</th>
+                            <th>Цена абонемента</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for group in groups %}
+                        <tr>
+                            <td>{{ group.id }}</td>
+                            <td>{{ group.name }}</td>
+                            <td>{{ group.trainer_id }}</td>
+                            <td>{{ group.price_per_training }}</td>
+                            <td>{{ group.subscription_price }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="mb-0">Группы пока не добавлены.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

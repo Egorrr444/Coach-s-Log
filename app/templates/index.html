@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Главная | Coach's Log{% endblock %}
+
+{% block content %}
+<div class="p-4 p-md-5 mb-4 bg-light rounded-3 shadow-sm">
+    <div class="container-fluid py-3">
+        <h1 class="display-6 fw-bold">Система учёта тренировок</h1>
+        <p class="col-md-8 fs-5">
+            Веб-приложение для тренера: группы, ученики, расписание, посещаемость, оплаты и чеки.
+        </p>
+        <a href="/groups-page" class="btn btn-primary btn-lg">Перейти к группам</a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-12 col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title">Группы</h5>
+                <p class="card-text">
+                    Просмотр групп, цен за тренировку и стоимости абонемента.
+                </p>
+                <a href="/groups-page" class="btn btn-outline-primary">Открыть</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title">API документация</h5>
+                <p class="card-text">
+                    Быстрая проверка всех эндпоинтов через Swagger.
+                </p>
+                <a href="/docs" class="btn btn-outline-dark">Открыть Swagger</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

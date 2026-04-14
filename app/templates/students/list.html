@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Ученики{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-4">Ученики</h1>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        {% if students %}
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Имя</th>
+                        <th>Телефон</th>
+                        <th>Группа</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in students %}
+                    <tr>
+                        <td>{{ s.id }}</td>
+                        <td>{{ s.full_name }}</td>
+                        <td>{{ s.phone }}</td>
+                        <td>{{ s.group_id }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>Нет учеников</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

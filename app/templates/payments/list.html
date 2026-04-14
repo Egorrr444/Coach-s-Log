@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}Оплаты{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <div class="col-12 col-lg-4">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="h5 mb-3">Новая оплата</h2>
+
+                <form method="post" action="/payments-page/create" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">Ученик</label>
+                        <select name="student_id" class="form-select" required>
+                            <option value="">Выберите ученика</option>
+                            {% for student in students %}
+                            <option value="{{ student.id }}">
+                                {{ student.full_name }} (ID {{ student.id }})
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Сумма</label>
+                        <input type="number" name="amount" step="0.01" min="0" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Дата оплаты</label>
+                        <input type="date" name="payment_date" value="{{ today }}" class="form-control" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Фото чека / PDF</label>
+                        <input type="file" name="file" class="form-control" accept=".jpg,.jpeg,.png,.webp,.pdf">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        Сохранить оплату
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h1 class="h4 mb-3">Оплаты</h1>
+
+                {% if payments %}
+                <div class="table-responsive">
+                    <table class="table table-striped align-middle">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Ученик ID</th>
+                                <th>Сумма</th>
+                                <th>Дата</th>
+                                <th>Чек</th>
+                                <th>Статус</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for payment in payments %}
+                            <tr>
+                                <td>{{ payment.id }}</td>
+                                <td>{{ payment.student_id }}</td>
+                                <td>{{ payment.amount }}</td>
+                                <td>{{ payment.payment_date }}</td>
+                                <td>
+                                    {% if payment.receipt_image %}
+                                    <span class="badge text-bg-success">Загружен</span>
+                                    {% else %}
+                                    <span class="badge text-bg-secondary">Нет</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if payment.status == "approved" %}
+                                    <span class="badge text-bg-success">Подтверждена</span>
+                                    {% elif payment.status == "rejected" %}
+                                    <span class="badge text-bg-danger">Отклонена</span>
+                                    {% else %}
+                                    <span class="badge text-bg-warning">На проверке</span>
+                                    {% endif %}
+                                </td>
+                                <td class="d-flex gap-2">
+                                    <form method="post" action="/payments-page/{{ payment.id }}/approve">
+                                        <button type="submit" class="btn btn-sm btn-success">
+                                            Подтвердить
+                                        </button>
+                                    </form>
+
+                                    <form method="post" action="/payments-page/{{ payment.id }}/reject">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            Отклонить
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="mb-0">Оплат пока нет.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
