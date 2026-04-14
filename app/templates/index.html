@@ -6,33 +6,73 @@
 <div class="p-4 p-md-5 mb-4 bg-light rounded-3 shadow-sm">
     <div class="container-fluid py-3">
         <h1 class="display-6 fw-bold">Система учёта тренировок</h1>
-        <p class="col-md-8 fs-5">
-            Веб-приложение для тренера: группы, ученики, расписание, посещаемость, оплаты и чеки.
+        <p class="col-md-9 fs-5">
+            Веб-приложение для тренера: группы, ученики, расписание, посещаемость, оплаты и финансовая сводка.
         </p>
-        <a href="/groups-page" class="btn btn-primary btn-lg">Перейти к группам</a>
+        <div class="d-flex flex-wrap gap-2">
+            <a href="/groups-page" class="btn btn-primary btn-lg">Группы</a>
+            <a href="/students-page" class="btn btn-outline-primary btn-lg">Ученики</a>
+            <a href="/trainings-page" class="btn btn-outline-dark btn-lg">Тренировки</a>
+        </div>
     </div>
 </div>
 
 <div class="row g-4">
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6 col-xl-4">
         <div class="card shadow-sm h-100">
             <div class="card-body">
                 <h5 class="card-title">Группы</h5>
-                <p class="card-text">
-                    Просмотр групп, цен за тренировку и стоимости абонемента.
-                </p>
+                <p class="card-text">Список групп, цены за тренировку и стоимость абонемента.</p>
                 <a href="/groups-page" class="btn btn-outline-primary">Открыть</a>
             </div>
         </div>
     </div>
 
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6 col-xl-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title">Ученики</h5>
+                <p class="card-text">Список учеников и их привязка к группам.</p>
+                <a href="/students-page" class="btn btn-outline-primary">Открыть</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-xl-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title">Тренировки</h5>
+                <p class="card-text">Расписание тренировок и переход к журналу посещаемости.</p>
+                <a href="/trainings-page" class="btn btn-outline-primary">Открыть</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-xl-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title">Оплаты</h5>
+                <p class="card-text">Создание оплаты, загрузка чека и подтверждение платежей.</p>
+                <a href="/payments-page" class="btn btn-outline-primary">Открыть</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-xl-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-body">
+                <h5 class="card-title">Финансы</h5>
+                <p class="card-text">Посещения, начисления, оплаченные суммы и задолженность ученика.</p>
+                <a href="/finance-page" class="btn btn-outline-primary">Открыть</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-xl-4">
         <div class="card shadow-sm h-100">
             <div class="card-body">
                 <h5 class="card-title">API документация</h5>
-                <p class="card-text">
-                    Быстрая проверка всех эндпоинтов через Swagger.
-                </p>
+                <p class="card-text">Проверка всех эндпоинтов через Swagger.</p>
                 <a href="/docs" class="btn btn-outline-dark">Открыть Swagger</a>
             </div>
         </div>

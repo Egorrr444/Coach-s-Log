@@ -28,7 +28,7 @@
                         <td>{{ t.group_id }}</td>
                         <td>{{ t.training_date }}</td>
                         <td>{{ t.training_time }}</td>
-                        <td>{{ t.topic }}</td>
+                        <td>{{ t.topic or "—" }}</td>
                         <td>
     <a href="/attendance-page/{{ t.id }}" class="btn btn-sm btn-primary">
         Открыть

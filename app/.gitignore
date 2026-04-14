@@ -1,7 +1,7 @@
 __pycache__/
 *.py[cod]
-*.sqlite3
 *.db
+*.sqlite3
 
 .venv/
 venv/
@@ -9,8 +9,6 @@ env/
 
 .idea/
 .vscode/
-
-.DS_Store
 
 media/
 uploads/
