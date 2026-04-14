@@ -15,5 +15,5 @@
 - Журнал посещаемости по тренировке
 
 ## Запуск
-pip install -r requirements.txt
+pip install -r app/requirements.txt
 uvicorn app.main:app --reload
