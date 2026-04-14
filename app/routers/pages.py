@@ -18,6 +18,11 @@ from datetime import date
 
 from fastapi import File, Form, UploadFile
 from app.models.payment import Payment
+from decimal import Decimal
+from datetime import date
+
+from app.models.attendance import Attendance
+from app.models.payment import Payment
 
 router = APIRouter(tags=["Pages"])
 
@@ -239,3 +244,87 @@ def reject_payment_from_page(payment_id: int, db: Session = Depends(get_db)):
         db.commit()
 
     return RedirectResponse(url="/payments-page", status_code=303)
+
+
+
+@router.get("/finance-page", response_class=HTMLResponse)
+def finance_page(
+    request: Request,
+    student_id: int | None = None,
+    year: int | None = None,
+    month: int | None = None,
+    db: Session = Depends(get_db),
+):
+    students = db.query(Student).order_by(Student.full_name).all()
+
+    today = date.today()
+    selected_year = year or today.year
+    selected_month = month or today.month
+
+    finance_data = None
+
+    if student_id is not None:
+        student = db.get(Student, student_id)
+
+        if student is not None:
+            start_date = date(selected_year, selected_month, 1)
+            end_date = (
+                date(selected_year + 1, 1, 1)
+                if selected_month == 12
+                else date(selected_year, selected_month + 1, 1)
+            )
+
+            visits_count = (
+                db.query(Attendance)
+                .join(Training, Attendance.training_id == Training.id)
+                .filter(
+                    Attendance.student_id == student_id,
+                    Attendance.status == "present",
+                    Training.training_date >= start_date,
+                    Training.training_date < end_date,
+                )
+                .count()
+            )
+
+            price_per_training = Decimal(student.group.price_per_training)
+            accrued_amount = price_per_training * visits_count
+
+            approved_payments = (
+                db.query(Payment)
+                .filter(
+                    Payment.student_id == student_id,
+                    Payment.status == "approved",
+                    Payment.payment_date >= start_date,
+                    Payment.payment_date < end_date,
+                )
+                .all()
+            )
+
+            paid_amount = sum(Decimal(payment.amount) for payment in approved_payments)
+            debt_amount = accrued_amount - paid_amount
+
+            finance_data = {
+                "student_id": student.id,
+                "student_name": student.full_name,
+                "group_name": student.group.name,
+                "year": selected_year,
+                "month": selected_month,
+                "visits_count": visits_count,
+                "price_per_training": float(price_per_training),
+                "accrued_amount": float(accrued_amount),
+                "paid_amount": float(paid_amount),
+                "debt_amount": float(debt_amount),
+            }
+
+    return templates.TemplateResponse(
+        request=request,
+        name="finance/page.html",
+        context={
+            "request": request,
+            "students": students,
+            "finance_data": finance_data,
+            "selected_student_id": student_id,
+            "selected_year": selected_year,
+            "selected_month": selected_month,
+        },
+    )
