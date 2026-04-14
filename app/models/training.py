@@ -1,7 +1,12 @@
+from typing import TYPE_CHECKING
 from datetime import date, time
 from sqlalchemy import Date, ForeignKey, String, Time
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base import Base
+
+if TYPE_CHECKING:
+    from app.models.attendance import Attendance
+    from app.models.group import Group
 
 
 class Training(Base):

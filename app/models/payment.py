@@ -4,6 +4,9 @@ from sqlalchemy import Date, ForeignKey, Numeric, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base import Base
 
+if TYPE_CHECKING:
+    from app.models.student import Student
+
 class Payment(Base):
     __tablename__ = "payments"
 

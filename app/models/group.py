@@ -1,6 +1,12 @@
+from typing import TYPE_CHECKING
 from sqlalchemy import ForeignKey, Numeric, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base import Base
+
+if TYPE_CHECKING:
+    from app.models.student import Student
+    from app.models.trainer import Trainer
+    from app.models.training import Training
 
 
 class Group(Base):

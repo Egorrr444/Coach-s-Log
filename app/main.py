@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-
+from app.routers.payments import router as payments_router
 from app.db.init_db import init_db
 from app.routers.attendance import router as attendance_router
 from app.routers.groups import router as groups_router
@@ -23,3 +23,4 @@ app.include_router(groups_router)
 app.include_router(students_router)
 app.include_router(trainings_router)
 app.include_router(attendance_router)
+app.include_router(payments_router)
